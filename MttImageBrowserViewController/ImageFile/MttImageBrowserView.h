@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+extern const CGFloat MttImageBrowserViewToolbarHeight;
+extern const CGFloat MttImageBrowserViewThumbnailHeight;
+extern const CGFloat MttImageBrowserViewThumbnailLeftMargin;
+
 @class MttImageBrowserToolbarView;
 @class MttImageBrowserThumbnailsView;
 

@@ -10,6 +10,10 @@
 #import "MttImageBrowserToolbarView.h"
 #import "MttImageBrowserThumbnailsView.h"
 
+const CGFloat MttImageBrowserViewToolbarHeight = 80;
+const CGFloat MttImageBrowserViewThumbnailHeight = 80;
+const CGFloat MttImageBrowserViewThumbnailLeftMargin = 100;
+
 @interface MttImageBrowserView()<UIScrollViewDelegate, UIGestureRecognizerDelegate>
 @end
 
@@ -44,19 +48,18 @@
                         initWithFrame:CGRectMake(0,
                                                  0,
                                                  CGRectGetWidth(self.bounds),
-                                                 80)];
+                                                 MttImageBrowserViewToolbarHeight)];
     self.toolbarView.backgroundColor = [UIColor blackColor];
     self.toolbarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
     [self addSubview:self.toolbarView];
 }
 
 - (void)setupThumbnailsView {
-    const CGFloat horizentalMargin = 100;
     self.thumbnailsView = [[MttImageBrowserThumbnailsView alloc]
-                           initWithFrame:CGRectMake(horizentalMargin,
-                                                    CGRectGetHeight(self.bounds) - 80,
-                                                    CGRectGetWidth(self.bounds) - 2 * horizentalMargin,
-                                                    80)];
+                           initWithFrame:CGRectMake(MttImageBrowserViewThumbnailLeftMargin,
+                                                    CGRectGetHeight(self.bounds) - MttImageBrowserViewThumbnailHeight,
+                                                    CGRectGetWidth(self.bounds) - 2 * MttImageBrowserViewThumbnailLeftMargin,
+                                                    MttImageBrowserViewThumbnailHeight)];
     self.thumbnailsView.backgroundColor = [UIColor redColor];
     self.thumbnailsView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self addSubview:self.thumbnailsView];
@@ -85,7 +88,7 @@
     singleTapGestureRecognizer.numberOfTapsRequired = 1;
     [self addGestureRecognizer:singleTapGestureRecognizer];
     
-    UITapGestureRecognizer * doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onDoubleTap:)];
+    UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onDoubleTap:)];
     doubleTapGestureRecognizer.delegate = self;
     doubleTapGestureRecognizer.numberOfTapsRequired = 2;
     [self addGestureRecognizer:doubleTapGestureRecognizer];
