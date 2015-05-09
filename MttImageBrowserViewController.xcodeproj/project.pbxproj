@@ -14,6 +14,10 @@
 		D6F1CBCA1AFDF8A1007C9191 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6F1CBC91AFDF8A1007C9191 /* Images.xcassets */; };
 		D6F1CBCD1AFDF8A1007C9191 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6F1CBCB1AFDF8A1007C9191 /* LaunchScreen.xib */; };
 		D6F1CBD91AFDF8A1007C9191 /* MttImageBrowserViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F1CBD81AFDF8A1007C9191 /* MttImageBrowserViewControllerTests.m */; };
+		D6F1CBE81AFDFA4A007C9191 /* MttImageBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F1CBE71AFDFA4A007C9191 /* MttImageBrowserViewController.m */; };
+		D6F1CBEB1AFDFD2A007C9191 /* MttImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F1CBEA1AFDFD2A007C9191 /* MttImageBrowserView.m */; };
+		D6F1CBEE1AFDFDB3007C9191 /* MttImageBrowserToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F1CBED1AFDFDB3007C9191 /* MttImageBrowserToolbarView.m */; };
+		D6F1CBF11AFDFDF2007C9191 /* MttImageBrowserThumbnailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F1CBF01AFDFDF2007C9191 /* MttImageBrowserThumbnailsView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +44,14 @@
 		D6F1CBD21AFDF8A1007C9191 /* MttImageBrowserViewControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MttImageBrowserViewControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6F1CBD71AFDF8A1007C9191 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6F1CBD81AFDF8A1007C9191 /* MttImageBrowserViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MttImageBrowserViewControllerTests.m; sourceTree = "<group>"; };
+		D6F1CBE61AFDFA4A007C9191 /* MttImageBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttImageBrowserViewController.h; sourceTree = "<group>"; };
+		D6F1CBE71AFDFA4A007C9191 /* MttImageBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MttImageBrowserViewController.m; sourceTree = "<group>"; };
+		D6F1CBE91AFDFD2A007C9191 /* MttImageBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttImageBrowserView.h; sourceTree = "<group>"; };
+		D6F1CBEA1AFDFD2A007C9191 /* MttImageBrowserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MttImageBrowserView.m; sourceTree = "<group>"; };
+		D6F1CBEC1AFDFDB3007C9191 /* MttImageBrowserToolbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttImageBrowserToolbarView.h; sourceTree = "<group>"; };
+		D6F1CBED1AFDFDB3007C9191 /* MttImageBrowserToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MttImageBrowserToolbarView.m; sourceTree = "<group>"; };
+		D6F1CBEF1AFDFDF2007C9191 /* MttImageBrowserThumbnailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttImageBrowserThumbnailsView.h; sourceTree = "<group>"; };
+		D6F1CBF01AFDFDF2007C9191 /* MttImageBrowserThumbnailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MttImageBrowserThumbnailsView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +93,7 @@
 		D6F1CBBB1AFDF8A1007C9191 /* MttImageBrowserViewController */ = {
 			isa = PBXGroup;
 			children = (
+				D6F1CBE21AFDF974007C9191 /* ImageFile */,
 				D6F1CBC01AFDF8A1007C9191 /* AppDelegate.h */,
 				D6F1CBC11AFDF8A1007C9191 /* AppDelegate.m */,
 				D6F1CBC31AFDF8A1007C9191 /* ViewController.h */,
@@ -117,6 +130,21 @@
 				D6F1CBD71AFDF8A1007C9191 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D6F1CBE21AFDF974007C9191 /* ImageFile */ = {
+			isa = PBXGroup;
+			children = (
+				D6F1CBE61AFDFA4A007C9191 /* MttImageBrowserViewController.h */,
+				D6F1CBE71AFDFA4A007C9191 /* MttImageBrowserViewController.m */,
+				D6F1CBE91AFDFD2A007C9191 /* MttImageBrowserView.h */,
+				D6F1CBEA1AFDFD2A007C9191 /* MttImageBrowserView.m */,
+				D6F1CBEC1AFDFDB3007C9191 /* MttImageBrowserToolbarView.h */,
+				D6F1CBED1AFDFDB3007C9191 /* MttImageBrowserToolbarView.m */,
+				D6F1CBEF1AFDFDF2007C9191 /* MttImageBrowserThumbnailsView.h */,
+				D6F1CBF01AFDFDF2007C9191 /* MttImageBrowserThumbnailsView.m */,
+			);
+			path = ImageFile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,7 +247,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6F1CBF11AFDFDF2007C9191 /* MttImageBrowserThumbnailsView.m in Sources */,
 				D6F1CBC51AFDF8A1007C9191 /* ViewController.m in Sources */,
+				D6F1CBEE1AFDFDB3007C9191 /* MttImageBrowserToolbarView.m in Sources */,
+				D6F1CBE81AFDFA4A007C9191 /* MttImageBrowserViewController.m in Sources */,
+				D6F1CBEB1AFDFD2A007C9191 /* MttImageBrowserView.m in Sources */,
 				D6F1CBC21AFDF8A1007C9191 /* AppDelegate.m in Sources */,
 				D6F1CBBF1AFDF8A1007C9191 /* main.m in Sources */,
 			);
@@ -352,6 +384,7 @@
 				INFOPLIST_FILE = MttImageBrowserViewController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -362,6 +395,7 @@
 				INFOPLIST_FILE = MttImageBrowserViewController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
@@ -418,6 +452,7 @@
 				D6F1CBDE1AFDF8A1007C9191 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D6F1CBDF1AFDF8A1007C9191 /* Build configuration list for PBXNativeTarget "MttImageBrowserViewControllerTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +461,7 @@
 				D6F1CBE11AFDF8A1007C9191 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
