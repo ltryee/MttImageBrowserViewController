@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MttImageBrowserViewDelegate.h"
 
 @class MttImageBrowserView;
 
-@interface MttImageBrowserViewController : UIViewController
+@interface MttImageBrowserViewController : UIViewController<MttImageBrowserViewDataSource, MttImageBrowserControl>
 @property (nonatomic, strong) MttImageBrowserView *imageBrowserView;
 @end

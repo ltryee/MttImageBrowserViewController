@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MttImageBrowserViewDelegate.h"
 
 @interface MttImageBrowserThumbnailsView : UIView
-
+@property (nonatomic, weak) id<MttImageBrowserControl> control;
 @end

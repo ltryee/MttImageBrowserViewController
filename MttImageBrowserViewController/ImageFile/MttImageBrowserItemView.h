@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MttImageBrowserCellView : UIScrollView<UIScrollViewDelegate>
+@interface MttImageBrowserItemView : UIScrollView<UIScrollViewDelegate>
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, assign) NSInteger index;
 
+- (id)initWithImage:(UIImage *)image;
 - (void)autoZoomWithAnimated:(BOOL)animated;
 
 @end

@@ -6,9 +6,18 @@
 //  Copyright (c) 2015年 vectorliu. All rights reserved.
 //
 
-#import "MttImageBrowserCellView.h"
+#import "MttImageBrowserItemView.h"
 
-@implementation MttImageBrowserCellView
+@implementation MttImageBrowserItemView
+
+- (id)initWithImage:(UIImage *)image {
+    self = [super init];
+    if (self) {
+        self.imageView.image = image;
+        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return self;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -18,11 +27,18 @@
         self.scrollsToTop = NO;
         self.minimumZoomScale = 1.0;
         self.maximumZoomScale = 3.0;
-        
-        self.imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-        self.imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.delegate = self;
     }
     return self;
+}
+
+- (UIImageView *)imageView {
+    if (!_imageView) {
+        _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        _imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [self addSubview:_imageView];
+    }
+    return _imageView;
 }
 
 - (void)autoZoomWithAnimated:(BOOL)animated {
@@ -43,7 +59,10 @@
     self.scrollEnabled = NO;
 }
 
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale {
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView
+                       withView:(UIView *)view
+                        atScale:(CGFloat)scale {
+    
     self.scrollEnabled = YES;
 }
 

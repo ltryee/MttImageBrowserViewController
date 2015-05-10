@@ -8,6 +8,8 @@
 
 #import "MttImageBrowserViewController.h"
 #import "MttImageBrowserView.h"
+#import "MttImageBrowserItemView.h"
+#import "MttImageBrowserThumbnailsItemView.h"
 
 @interface MttImageBrowserViewController ()
 
@@ -19,7 +21,10 @@
     [super viewDidLoad];
     
     self.imageBrowserView = [[MttImageBrowserView alloc] initWithFrame:self.view.bounds];
+    self.imageBrowserView.dataSource = self;
     [self.view addSubview:self.imageBrowserView];
+    
+    [self.imageBrowserView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -27,14 +32,26 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - MttImageBrowserViewDataSource
+- (NSUInteger)numberOfItemsInImageBrowserView:(MttImageBrowserView *)imageBrowserView {
+    return 8;
 }
-*/
+
+- (MttImageBrowserItemView *)imageBrowserView:(MttImageBrowserView *)imageBrowserView itemAtIndex:(NSUInteger)index {
+
+    UIImage * image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld.jpg", (long)(index + 1)]];
+    MttImageBrowserItemView * itemView = [[MttImageBrowserItemView alloc] initWithImage:image];
+    return itemView;
+}
+
+#pragma mark - MttImageBrowserControl
+- (void)imageBrowserView:(UIView *)view
+           excuteCommand:(MttImageBrowserControlCommand)command
+           withParameter:(id)parameter {
+
+    [self.imageBrowserView imageBrowserView:view
+                              excuteCommand:command
+                              withParameter:parameter];
+}
 
 @end
