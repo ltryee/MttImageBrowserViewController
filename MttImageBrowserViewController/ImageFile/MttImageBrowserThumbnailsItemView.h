@@ -11,4 +11,7 @@
 @interface MttImageBrowserThumbnailsItemView : UIView
 @property (nonatomic, assign) BOOL selected;
 @property (nonatomic, strong) UIImageView *imageView;
+
+- (id)initWithImage:(UIImage *)image;
+
 @end
