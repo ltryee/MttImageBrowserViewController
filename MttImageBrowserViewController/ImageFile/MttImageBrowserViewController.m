@@ -40,7 +40,14 @@
 - (MttImageBrowserItemView *)imageBrowserView:(MttImageBrowserView *)imageBrowserView itemAtIndex:(NSUInteger)index {
 
     UIImage * image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld.jpg", (long)(index + 1)]];
-    MttImageBrowserItemView * itemView = [[MttImageBrowserItemView alloc] initWithImage:image];
+    MttImageBrowserItemView *itemView = [[MttImageBrowserItemView alloc] initWithImage:image];
+    return itemView;
+}
+
+- (MttImageBrowserThumbnailsItemView *)imageBrowserView:(MttImageBrowserView *)imageBrowserView thumbnailItemAtIndex:(NSUInteger)index {
+    
+    UIImage * image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld.jpg", (long)(index + 1)]];
+    MttImageBrowserThumbnailsItemView *itemView = [[MttImageBrowserThumbnailsItemView alloc] initWithImage:image];
     return itemView;
 }
 

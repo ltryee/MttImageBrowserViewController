@@ -30,11 +30,7 @@ const CGFloat MttImageBrowserViewThumbnailLeftMargin = 100;
         self.isMaskHidden = NO;
         self.control = (id<MttImageBrowserControl>)self;
         self.items = [NSMutableDictionary dictionary];
-        
-//        [self setupScrollView];
-//        [self setupToolbarView];
-//        [self setupThumbnailsView];
-        
+ 
         [self setupGestureRecognizers];
     }
     return self;
@@ -128,11 +124,8 @@ const CGFloat MttImageBrowserViewThumbnailLeftMargin = 100;
         }
     }
     
-    if ([self.dataSource respondsToSelector:@selector(imageBrowserView:itemAtIndex:)]) {
-        MttImageBrowserItemView * itemView = [self.dataSource imageBrowserView:self itemAtIndex:self.indexOfCurrentItem];
-        [self setItemView:itemView atIndex:self.indexOfCurrentItem];
-        [self preloadItemViewForIndex:self.indexOfCurrentItem];
-    }
+    [self loadItemViewForIndex:self.indexOfCurrentItem];
+    [self preloadItemViewForIndex:self.indexOfCurrentItem];
     
     [self.control imageBrowserView:self
                      excuteCommand:MttImageBrowserControlCommandSwitchToAnother
@@ -195,7 +188,7 @@ const CGFloat MttImageBrowserViewThumbnailLeftMargin = 100;
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    self.indexOfCurrentItem = [self currentItemIndexWithScrollView:scrollView];
+    self.indexOfCurrentItem = [self itemIndexWithScrollViewOffset:scrollView.contentOffset];
     // update items
     if (![self imageBrowserItemViewAtIndex:self.indexOfCurrentItem]) {
         [self loadItemViewForIndex:self.indexOfCurrentItem];
@@ -204,6 +197,20 @@ const CGFloat MttImageBrowserViewThumbnailLeftMargin = 100;
     [self preloadItemViewForIndex:self.indexOfCurrentItem];
     
     // TODO: update thumbnails
+    
+    // update title
+    if ([self.dataSource respondsToSelector:@selector(imageBrowserView:titleForToolbarAtIndex:)]) {
+        self.toolbarView.title = [self.dataSource imageBrowserView:self
+                                            titleForToolbarAtIndex:self.indexOfCurrentItem];
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSUInteger scrollingIndex = [self itemIndexWithScrollViewOffset:scrollView.contentOffset];
+    if (![self imageBrowserItemViewAtIndex:scrollingIndex]) {
+        [self loadItemViewForIndex:scrollingIndex];
+    }
+    [self preloadItemViewForIndex:scrollingIndex];
 }
 
 #pragma mark - MttImageBrowserControl
@@ -211,6 +218,27 @@ const CGFloat MttImageBrowserViewThumbnailLeftMargin = 100;
            excuteCommand:(MttImageBrowserControlCommand)command
            withParameter:(id)parameter {
     
+    switch (command) {
+        case MttImageBrowserControlCommandShrink: {
+            [self setMaskHidden:!self.isMaskHidden animated:YES];
+            break;
+        }
+        case MttImageBrowserControlCommandZoom: {
+            MttImageBrowserItemView * currentItemView = [self imageBrowserItemViewAtIndex:self.indexOfCurrentItem];
+            [currentItemView autoZoomWithAnimated:YES];
+            break;
+        }
+        case MttImageBrowserControlCommandSwitchToAnother: {
+            NSUInteger destIndex = [(NSNumber *)parameter unsignedIntegerValue];
+            if (destIndex < [self.dataSource numberOfItemsInImageBrowserView:self]) {
+                [self scrollToItemAtIndex:destIndex animated:YES];
+            }
+            break;
+        }
+        case MttImageBrowserControlCommandQuit:
+        default:
+            break;
+    }
 }
 
 #pragma mark - items
@@ -233,39 +261,33 @@ const CGFloat MttImageBrowserViewThumbnailLeftMargin = 100;
 }
 
 - (void)preloadItemViewForIndex:(NSUInteger)index {
-    if (![self.dataSource respondsToSelector:@selector(imageBrowserView:itemAtIndex:)]) {
-        return;
-    }
-    
     if (index >= 1 &&
         ![self imageBrowserItemViewAtIndex:index - 1]) {
         
-        MttImageBrowserItemView *itemView = [self.dataSource imageBrowserView:self itemAtIndex:index - 1];
-        [self setItemView:itemView atIndex:index - 1];
+        [self loadItemViewForIndex:index - 1];
     }
     
     NSUInteger itemCount = [self.dataSource numberOfItemsInImageBrowserView:self];
     if (index < itemCount - 1 &&
         ![self imageBrowserItemViewAtIndex:index + 1]) {
         
-        MttImageBrowserItemView *itemView = [self.dataSource imageBrowserView:self itemAtIndex:index + 1];
-        [self setItemView:itemView atIndex:index + 1];
+        [self loadItemViewForIndex:index + 1];
     }
 }
 
-- (NSUInteger)currentItemIndexWithScrollView:(UIScrollView *)scrollView {
+- (NSUInteger)itemIndexWithScrollViewOffset:(CGPoint)offset {
     NSUInteger index = 0;
-    CGFloat offsetX = scrollView.contentOffset.x;
+    CGFloat offsetX = offset.x;
     index = (NSUInteger)(offsetX / CGRectGetWidth(self.bounds));
     return index;
 }
 
 - (void)dismissItemViewForIndex:(NSUInteger)index {
     NSUInteger itemCount = [self.dataSource numberOfItemsInImageBrowserView:self];
-    for (NSUInteger i = 0; i < itemCount; ++i) {
-        if (i < self.indexOfCurrentItem - 1
-            || i > self.indexOfCurrentItem + 1) {
-            
+    NSInteger leftEdge = (NSInteger)index - 1;
+    NSInteger rightEdge = (NSInteger)index + 1;
+    for (NSInteger i = 0; i < (NSInteger)itemCount; ++i) {
+        if (i < leftEdge || i > rightEdge) {
             MttImageBrowserItemView * itemView = [self imageBrowserItemViewAtIndex:i];
             [itemView removeFromSuperview];
             [self.items removeObjectForKey:@(i)];
@@ -280,5 +302,13 @@ const CGFloat MttImageBrowserViewThumbnailLeftMargin = 100;
     
     MttImageBrowserItemView * itemView = [self.dataSource imageBrowserView:self itemAtIndex:index];
     [self setItemView:itemView atIndex:index];
+}
+
+- (void)scrollToItemAtIndex:(NSUInteger)index animated:(BOOL)animated {
+    CGRect destRect = CGRectMake(CGRectGetWidth(self.bounds) * index,
+                                 0,
+                                 CGRectGetWidth(self.bounds),
+                                 CGRectGetHeight(self.bounds));
+    [self.scrollView scrollRectToVisible:destRect animated:animated];
 }
 @end
